@@ -1,6 +1,7 @@
-import { fetchPokedex } from "../Hooks/usePokedex";
+import { fetchPokedex } from "../../Hooks/usePokedex";
 import { useState, useEffect, useRef } from "react";
-import { keepPreviousData, useQuery } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
+import { Link } from "react-router-dom";
 
 const PokedexPost = () => {
   const [limit, setLimit] = useState(10);
@@ -9,16 +10,16 @@ const PokedexPost = () => {
     queryFn: fetchPokedex,
   });
 
-  const isFirstLoad = useRef(true)
+  const isFirstLoad = useRef(true);
   const bottomRef = useRef(null);
 
   useEffect(() => {
-    if(isFirstLoad.current) {
-        isFirstLoad.current = false;
-        return
+    if (isFirstLoad.current) {
+      isFirstLoad.current = false;
+      return;
     }
     if (bottomRef.current) {
-      bottomRef.current.scrollIntoView({ behavior: "smooth", block: 'start' });
+      bottomRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
     }
   }, [data]);
 
@@ -27,13 +28,15 @@ const PokedexPost = () => {
 
   return (
     <>
-      <div style={{overflow: 'auto', }}>
+      <div style={{ overflow: "auto" }}>
         <ul>
           {data.map((pokemon) => {
             return (
               <li key={pokemon.name}>
-                <p>{pokemon.name}</p>
-                <img src={pokemon.image} alt={pokemon.name} />
+                <Link to={`/pokemon/${pokemon.name}`}>
+                  <p>{pokemon.name}</p>
+                  <img src={pokemon.image} alt={pokemon.name} />
+                </Link>
               </li>
             );
           })}

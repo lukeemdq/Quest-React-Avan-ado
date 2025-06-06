@@ -1,6 +1,7 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import './App.css'
 import { PokedexPost } from './assets/components/PokedexPost'
+import { ButtonLoadMore } from './assets/components/ButtonLoadMore/ButtonLoadMore'
 
 
 

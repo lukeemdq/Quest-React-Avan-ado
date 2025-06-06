@@ -1,3 +1,10 @@
+
+
+// const handleClickMore = (numeroPost) => {
+//     numeroPost = numeroPost + 10
+//     console.log(numeroPost)
+// }
+
 const ButtonLoadMore = (props) => {
     return (
         <>
@@ -5,3 +12,5 @@ const ButtonLoadMore = (props) => {
         </>
     )
 }
+
+export {ButtonLoadMore}

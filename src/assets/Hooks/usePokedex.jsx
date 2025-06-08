@@ -12,7 +12,7 @@ const fetchPokedex = async ({queryKey}) => {
             const res = await axios.get(pokemon.url);
             return {
                 name: pokemon.name,
-                image: res.data.sprites.front_default,
+                image: res.data.sprites.other['official-artwork'].front_default,
                 
             };
         })

@@ -54,22 +54,26 @@ const PostPokemonDetails = () => {
           </div>
 
           <ul className="abilities-infos">
+            <h2>Moves</h2>
             {data.abilities.map((abilitie) => {
               return (
                 <li key={abilitie.nameab}>
-                    <p className="abilitie-name">{abilitie.nameab}</p>
-                  
+                  <p className="abilitie-name">{abilitie.nameab}</p>
+
                   <p className="abilitie-description">{abilitie.description}</p>
                 </li>
               );
             })}
           </ul>
 
-          <ul>
-            {data.moves.slice(0, 10).map((move) => {
+          <ul className="move-list">
+            {data.moves.slice(0, 30).map((move) => {
               return <li key={move.move.name}>{move.move.name}</li>;
             })}
           </ul>
+          <div className="total-moves">
+            <p >30 de {data.moves.length}</p>
+          </div>
         </DivPokemon>
       </ContainerPost>
     </>
@@ -118,8 +122,6 @@ const DivPokemon = styled.div`
     margin-top: 30px;
   }
 
-
-
   .abilities-infos li {
     background-color: #fff;
     margin-top: 15px;
@@ -137,6 +139,33 @@ const DivPokemon = styled.div`
 
   .abilitie-description {
     font-size: 18px;
+  }
+
+  .move-list {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 40px;
+  }
+
+  .move-list li {
+    background-color: #fff;
+    margin-right: 15px;
+    margin-bottom: 15px;
+    width: 200px;
+    text-align: center;
+    padding: 10px;
+    text-transform: capitalize;
+    font-weight: 700;
+  }
+
+  .total-moves {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
   }
 `;
 

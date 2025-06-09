@@ -2,12 +2,15 @@ import { useQuery } from "@tanstack/react-query";
 import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 import styled from "styled-components";
-import { useContext } from "react"
-import { ThemeContext } from "../../../contexts/theme-context"
+import { useContext, useState } from "react";
+import { ThemeContext } from "../../../contexts/theme-context";
+import { Button } from "../Button/Button";
 
 const PostPokemonDetails = () => {
   const { name } = useParams();
-  const { theme } = useContext(ThemeContext)
+  const { theme } = useContext(ThemeContext);
+
+  const [moveList, setMoveList] = useState(10);
 
   const { data, isLoading, error } = useQuery({
     queryKey: ["pokemon", name],
@@ -42,7 +45,7 @@ const PostPokemonDetails = () => {
 
   if (isLoading) return <p>Carregando...</p>;
   if (error) return <p>Error: {error.message}</p>;
-  
+
   return (
     <>
       <ContainerPost>
@@ -55,17 +58,18 @@ const PostPokemonDetails = () => {
               <img className="pokemon-image" src={data.image} alt={data.name} />
             </div>
             <p className="pokemon-name">{data.name}</p>
-            
-            {
-                data.types.map((type) => {
-                    return (
-                <TypeCard type={type.type.name} className="cards-type" key={type.type.name}>
-                    <li className="pokemon-type">{type.type.name}</li>
+
+            {data.types.map((type) => {
+              return (
+                <TypeCard
+                  type={type.type.name}
+                  className="cards-type"
+                  key={type.type.name}
+                >
+                  <li className="pokemon-type">{type.type.name}</li>
                 </TypeCard>
-                )
-                })
-            }
-            
+              );
+            })}
           </div>
 
           <ul className="abilities-infos">
@@ -80,16 +84,30 @@ const PostPokemonDetails = () => {
               );
             })}
           </ul>
-            <h2 style={{marginTop: "35px", alignSelf:"center", justifySelf:"center"}}>Moves</h2>
+          <h2
+            style={{
+              marginTop: "35px",
+              alignSelf: "center",
+              justifySelf: "center",
+            }}
+          >
+            Moves
+          </h2>
           <ul className="move-list">
-            
-            
-            {data.moves.slice(0, 30).map((move) => {
+            {data.moves.slice(0, moveList).map((move) => {
               return <li key={move.move.name}>{move.move.name}</li>;
             })}
           </ul>
           <div className="total-moves">
-            <p >30 de {data.moves.length}</p>
+            <p>
+              {" "}
+              Showing {Math.min(moveList, data.moves.length)} of {data.moves.length}
+            </p>
+            {moveList < data.moves.length && (
+              <button className="button-more" onClick={() => setMoveList((prev) => prev + 10)}>
+                Carregar mais
+              </button>
+            )}
           </div>
         </DivPokemon>
       </ContainerPost>
@@ -101,6 +119,7 @@ const ContainerPost = styled.section`
   display: flex;
   flex-direction: column;
   align-items: center;
+  color: ${(props) => props.theme.text};
 `;
 
 const DivPokemon = styled.div`
@@ -111,8 +130,8 @@ const DivPokemon = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #fff; 
-    border: 2px solid #ccc;
+    background-color: ${(props) => props.theme.buttonBg};
+    border: 2px solid #aaa;
     margin-top: 30px;
   }
 
@@ -122,9 +141,18 @@ const DivPokemon = styled.div`
     object-fit: contain;
   }
 
+  .button-more {
+    padding: 10px 30px;
+    background-color: #e65757;
+    color: #fff;
+    border-radius: 10px;
+    border: 1px solid #000;
+  }
+
   .button-back {
     font-size: 20px;
     font-weight: 700;
+    color: ${(props) => props.theme.text};
   }
 
   .info-pokemon {
@@ -141,7 +169,7 @@ const DivPokemon = styled.div`
   }
 
   .abilities-infos li {
-    background-color: #fff;
+    background-color: ${(props) => props.theme.buttonBg};
     margin-top: 15px;
     list-style: none;
     padding: 15px 30px;
@@ -169,7 +197,7 @@ const DivPokemon = styled.div`
   }
 
   .move-list li {
-    background-color: #fff;
+    background-color: ${(props) => props.theme.buttonBg};
     margin-right: 15px;
     margin-bottom: 15px;
     width: 200px;
@@ -184,6 +212,8 @@ const DivPokemon = styled.div`
     align-items: center;
     justify-content: center;
     font-weight: 700;
+    flex-direction: column;
+    gap: 15px;
   }
 `;
 
@@ -196,18 +226,14 @@ const TypeCard = styled.div`
   text-transform: capitalize;
   width: 100px;
   text-align: center;
-  
+
   margin-top: 10px;
-  
-  
+
   .cards-type {
-    
   }
 
   .pokemon-type {
     list-style: none;
-    
-    
   }
 `;
 

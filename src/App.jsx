@@ -1,12 +1,26 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import styled from "styled-components";
+import styled, { ThemeProvider as StyledThemeProvider } from "styled-components";
 import { AppRoutes } from "./assets/pages/routes";
 import "./App.css";
 import { HeaderGlobal } from "./assets/components/Header/HeaderGlobal";
 import { BrowserRouter } from "react-router-dom";
-import { ThemeProvider } from "./contexts/theme-context";
+import { ThemeProvider, ThemeContext } from "./contexts/theme-context";
+import { useContext } from "react";
 
 
+
+function AppContent() {
+  const { theme } = useContext(ThemeContext);
+
+  return (
+    <StyledThemeProvider theme={theme}>
+      <HeaderGlobal />
+      <AppContainer>
+        <AppRoutes />
+      </AppContainer>
+    </StyledThemeProvider>
+  );
+}
 
 
 function App() {
@@ -18,10 +32,7 @@ function App() {
       <QueryClientProvider client={queryClient}>
         <BrowserRouter>
           <ThemeProvider>
-            <HeaderGlobal />
-            <AppContainer>
-              <AppRoutes />
-            </AppContainer>
+            <AppContent/>
           </ThemeProvider>
         </BrowserRouter>
       </QueryClientProvider>

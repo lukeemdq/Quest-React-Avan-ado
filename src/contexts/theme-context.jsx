@@ -4,7 +4,7 @@ const themes = {
   light: {
     background: "#f9f9f9",
     text: "#333",
-    buttonBg: "#ddd",
+    buttonBg: "#eee",
   },
   dark: {
     background: "#121212",

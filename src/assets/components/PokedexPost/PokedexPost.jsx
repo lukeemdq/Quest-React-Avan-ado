@@ -79,9 +79,9 @@ const MainContainer = styled.section`
   }
 
   .card-pokemon {
-    background-color: #f8f8f8;
+    background-color: ${(props) => props.theme.buttonBg};
     list-style: none;
-    color: #000;
+    color: ${(props) => props.theme.text};
     font-weight: bold;
     font-size: 20px;
     width: 200px;
@@ -93,6 +93,7 @@ const MainContainer = styled.section`
     text-align: center;
     transition: transform 0.3 ease-in-out;
     box-shadow: 0px 3px 5px rgba(0,0,0,0.2);
+    border-radius: 20px;
   }
 
  
@@ -104,11 +105,12 @@ const MainContainer = styled.section`
   .pokemon-name {
    margin: 0px;
    text-transform: capitalize; 
+   color: ${(props) => props.theme.text};
   }
 
   span {
     display: block;
-    color: #333;
+    color: ${(props) => props.theme.text};
     font-size: 12px; 
   }
 

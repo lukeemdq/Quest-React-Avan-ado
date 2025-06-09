@@ -1,6 +1,8 @@
 import styled from "styled-components";
 import pokelogo from "../../images/pokelogo.png";
 import { Link } from "react-router-dom";
+import { ThemeTogglerButton } from "../Button/theme-toggler-button";
+
 
 const HeaderGlobal = () => {
   return (
@@ -13,7 +15,7 @@ const HeaderGlobal = () => {
           </div>
         </Link>
         <div>
-          <button>Toggle</button>
+          <ThemeTogglerButton/>
         </div>
       </HeaderContainer>
     </>

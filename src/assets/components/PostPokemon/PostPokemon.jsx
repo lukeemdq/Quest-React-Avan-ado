@@ -2,9 +2,12 @@ import { useQuery } from "@tanstack/react-query";
 import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 import styled from "styled-components";
+import { useContext } from "react"
+import { ThemeContext } from "../../../contexts/theme-context"
 
 const PostPokemonDetails = () => {
   const { name } = useParams();
+  const { theme } = useContext(ThemeContext)
 
   const { data, isLoading, error } = useQuery({
     queryKey: ["pokemon", name],
@@ -32,13 +35,14 @@ const PostPokemonDetails = () => {
         image: res.sprites.other["official-artwork"].front_default,
         moves: res.moves,
         abilities: abilitiesText,
+        types: res.types,
       };
     },
   });
 
   if (isLoading) return <p>Carregando...</p>;
   if (error) return <p>Error: {error.message}</p>;
-
+  
   return (
     <>
       <ContainerPost>
@@ -51,10 +55,21 @@ const PostPokemonDetails = () => {
               <img className="pokemon-image" src={data.image} alt={data.name} />
             </div>
             <p className="pokemon-name">{data.name}</p>
+            
+            {
+                data.types.map((type) => {
+                    return (
+                <TypeCard type={type.type.name} className="cards-type" key={type.type.name}>
+                    <li className="pokemon-type">{type.type.name}</li>
+                </TypeCard>
+                )
+                })
+            }
+            
           </div>
 
           <ul className="abilities-infos">
-            <h2>Moves</h2>
+            <h2>Abilities</h2>
             {data.abilities.map((abilitie) => {
               return (
                 <li key={abilitie.nameab}>
@@ -65,8 +80,10 @@ const PostPokemonDetails = () => {
               );
             })}
           </ul>
-
+            <h2 style={{marginTop: "35px", alignSelf:"center", justifySelf:"center"}}>Moves</h2>
           <ul className="move-list">
+            
+            
             {data.moves.slice(0, 30).map((move) => {
               return <li key={move.move.name}>{move.move.name}</li>;
             })}
@@ -94,7 +111,7 @@ const DivPokemon = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #fff; /* opcional */
+    background-color: #fff; 
     border: 2px solid #ccc;
     margin-top: 30px;
   }
@@ -120,6 +137,7 @@ const DivPokemon = styled.div`
     font-size: 36px;
     font-weight: 700;
     margin-top: 30px;
+    text-transform: capitalize;
   }
 
   .abilities-infos li {
@@ -168,5 +186,50 @@ const DivPokemon = styled.div`
     font-weight: 700;
   }
 `;
+
+const TypeCard = styled.div`
+  background-color: ${({ type }) => typeColors[type] || "#ccc"};
+  color: white;
+  padding: 10px 20px;
+  border-radius: 10px;
+  font-weight: bold;
+  text-transform: capitalize;
+  width: 100px;
+  text-align: center;
+  
+  margin-top: 10px;
+  
+  
+  .cards-type {
+    
+  }
+
+  .pokemon-type {
+    list-style: none;
+    
+    
+  }
+`;
+
+const typeColors = {
+  fire: "#F08030",
+  water: "#6890F0",
+  grass: "#78C850",
+  electric: "#F8D030",
+  psychic: "#F85888",
+  ice: "#98D8D8",
+  dragon: "#7038F8",
+  dark: "#705848",
+  fairy: "#EE99AC",
+  normal: "#A8A878",
+  fighting: "#C03028",
+  flying: "#A890F0",
+  poison: "#A040A0",
+  ground: "#E0C068",
+  rock: "#B8A038",
+  bug: "#A8B820",
+  ghost: "#705898",
+  steel: "#B8B8D0",
+};
 
 export { PostPokemonDetails };

@@ -340,7 +340,7 @@ Please change the parent <Route path="${L}"> to <Route path="${L==="/"?"*":`${L}
   .link-home:hover {
     transform: scale(1.05);
   }
-`,vT=()=>Z.jsxs(GE,{children:[Z.jsx(qf,{exact:!0,path:"/",element:Z.jsx(rT,{})}),Z.jsx(qf,{exact:!0,path:"/pokemon/:name",element:Z.jsx(dT,{})})]});function bT(){const{theme:a}=j.useContext(Li);return Z.jsxs(JS,{theme:a,children:[Z.jsx(yT,{}),Z.jsx(ET,{children:Z.jsx(vT,{})})]})}function ST(){const a=new Mb;return Z.jsx(Z.Fragment,{children:Z.jsx(Bb,{client:a,children:Z.jsx(hR,{children:Z.jsx(Ix,{children:Z.jsx(bT,{})})})})})}const ET=ln.main`
+`,vT=()=>Z.jsxs(GE,{children:[Z.jsx(qf,{exact:!0,path:"/",element:Z.jsx(rT,{})}),Z.jsx(qf,{exact:!0,path:"/pokemon/:name",element:Z.jsx(dT,{})})]});function bT(){const{theme:a}=j.useContext(Li);return Z.jsxs(JS,{theme:a,children:[Z.jsx(yT,{}),Z.jsx(ET,{children:Z.jsx(vT,{})})]})}function ST(){const a=new Mb;return Z.jsx(Z.Fragment,{children:Z.jsx(Bb,{client:a,children:Z.jsx(hR,{basename:"/Quest-React-Avan-ado",children:Z.jsx(Ix,{children:Z.jsx(bT,{})})})})})}const ET=ln.main`
   padding: 40px;
   background-color: ${a=>a.theme.background};
   min-height: 100vh;

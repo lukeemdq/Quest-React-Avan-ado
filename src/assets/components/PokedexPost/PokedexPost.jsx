@@ -24,12 +24,13 @@ const PokedexPost = () => {
     }
   }, [data]);
 
-  if (isLoading) return <p style={{alignSelf: "center",justifyContent: "center",}}>Carregando pokemons...</p>;
+  if (isLoading) return <LoadingWrapper> <LoadingMessage style={{alignSelf: "center",justifyContent: "center",}}>Carregando pokemons...</LoadingMessage></LoadingWrapper> ;
   if (error) return <p> {error.message}</p>;
 
   return (
     <>
       <MainContainer>
+        <h1 className="title-pokedex">Now you can find details of yours favorites pokémons!</h1>
         <ul className="container-list">
           {data.map((pokemon, index) => {
             return (
@@ -61,11 +62,32 @@ const PokedexPost = () => {
   );
 };
 
+const LoadingMessage = styled.p`
+  align-self: center;
+  justify-content: center;
+  color: ${(props) => props.theme.text};
+`;
+
+const LoadingWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 80vh; /* você pode ajustar esse valor */
+`;
+
 const MainContainer = styled.section`
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  color: ${(props) => props.theme.text};
+  margin-top: 30px;
+  
+
+  .title-pokedex {
+    font-size: 32px;
+    margin-bottom: 10px;
+  }
   
   .container-list {
     display: flex;
@@ -81,7 +103,6 @@ const MainContainer = styled.section`
   .card-pokemon {
     background-color: ${(props) => props.theme.buttonBg};
     list-style: none;
-    color: ${(props) => props.theme.text};
     font-weight: bold;
     font-size: 20px;
     width: 200px;
@@ -112,6 +133,7 @@ const MainContainer = styled.section`
     display: block;
     color: ${(props) => props.theme.text};
     font-size: 12px; 
+    margin-bottom: 5px;
   }
 
   

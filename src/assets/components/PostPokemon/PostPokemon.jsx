@@ -119,10 +119,13 @@ const ContainerPost = styled.section`
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   color: ${(props) => props.theme.text};
+  
 `;
 
 const DivPokemon = styled.div`
+    max-width: 1300px;
   .circle-mask {
     width: 250px;
     height: 250px;

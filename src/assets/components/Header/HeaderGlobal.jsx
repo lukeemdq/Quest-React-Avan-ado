@@ -31,6 +31,7 @@ const HeaderContainer = styled.header`
   align-items: center;
   justify-content: space-between;
   padding: 10px;
+  font-family: 'Orbitron', sans-serif;
 
   img {
     width: 50px;
@@ -41,6 +42,7 @@ const HeaderContainer = styled.header`
     margin-right: 30px;
     padding: 5px 10px;
     border-radius: 5px;
+    font-family: 'Orbitron', sans-serif;
   }
 
   .container-logo {
@@ -48,7 +50,7 @@ const HeaderContainer = styled.header`
     align-items: center;
     gap: 5px;
     font-size: 32px;
-    font-family: monospace;
+    font-family: 'Orbitron', sans-serif;
     color: #fff;
   }
 

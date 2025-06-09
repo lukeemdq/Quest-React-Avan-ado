@@ -44,6 +44,7 @@ const AppContainer = styled.main`
   padding: 40px;
   background-color: ${(props) => props.theme.background};
   min-height: 100vh;
+  font-family: 'Orbitron', sans-serif;
 
  
 `;

@@ -30,7 +30,7 @@ function App() {
   return (
     <>
       <QueryClientProvider client={queryClient}>
-        <BrowserRouter>
+        <BrowserRouter basename="/Quest-React-Avan-ado">
           <ThemeProvider>
             <AppContent/>
           </ThemeProvider>

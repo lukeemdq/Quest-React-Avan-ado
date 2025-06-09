@@ -3,6 +3,9 @@ import { useState, useEffect, useRef } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { SearchFormPokemon } from "../SearchForm/SearchFormPokemon";
+
+
 
 const PokedexPost = () => {
   const [limit, setLimit] = useState(10);
@@ -24,13 +27,27 @@ const PokedexPost = () => {
     }
   }, [data]);
 
-  if (isLoading) return <LoadingWrapper> <LoadingMessage style={{alignSelf: "center",justifyContent: "center",}}>Carregando pokemons...</LoadingMessage></LoadingWrapper> ;
+  if (isLoading)
+    return (
+      <LoadingWrapper>
+        {" "}
+        <LoadingMessage
+          style={{ alignSelf: "center", justifyContent: "center" }}
+        >
+          Carregando pokemons...
+        </LoadingMessage>
+      </LoadingWrapper>
+    );
   if (error) return <p> {error.message}</p>;
-
+  
   return (
     <>
       <MainContainer>
-        <h1 className="title-pokedex">Now you can find details of yours favorites pokémons!</h1>
+        <h1 className="title-pokedex">
+          Now you can find details of yours favorites pokémons!
+        </h1>
+        <SearchFormPokemon/>
+
         <ul className="container-list">
           {data.map((pokemon, index) => {
             return (
@@ -40,7 +57,7 @@ const PokedexPost = () => {
                   to={`/pokemon/${pokemon.name}`}
                 >
                   <span>#{index}</span>
-                  
+
                   <img
                     className="image-pokemon"
                     src={pokemon.image}
@@ -54,7 +71,10 @@ const PokedexPost = () => {
         </ul>
 
         <div ref={bottomRef} />
-        <button className="button-more" onClick={() => setLimit((more) => more + 10)}>
+        <button
+          className="button-more"
+          onClick={() => setLimit((more) => more + 10)}
+        >
           Carregar mais
         </button>
       </MainContainer>
@@ -72,7 +92,7 @@ const LoadingWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 80vh; /* você pode ajustar esse valor */
+  height: 80vh; 
 `;
 
 const MainContainer = styled.section`
@@ -82,13 +102,14 @@ const MainContainer = styled.section`
   justify-content: center;
   color: ${(props) => props.theme.text};
   margin-top: 30px;
-  
 
   .title-pokedex {
     font-size: 32px;
     margin-bottom: 10px;
   }
+
   
+
   .container-list {
     display: flex;
     flex-wrap: wrap;
@@ -97,7 +118,6 @@ const MainContainer = styled.section`
     justify-content: center;
     padding: 30px;
     max-width: 1300px;
-    
   }
 
   .card-pokemon {
@@ -113,37 +133,32 @@ const MainContainer = styled.section`
     align-items: center;
     text-align: center;
     transition: transform 0.3 ease-in-out;
-    box-shadow: 0px 3px 5px rgba(0,0,0,0.2);
+    box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.2);
     border-radius: 20px;
   }
 
- 
-
-  .card-pokemon:hover{
+  .card-pokemon:hover {
     transform: scale(1.05);
   }
 
   .pokemon-name {
-   margin: 0px;
-   text-transform: capitalize; 
-   color: ${(props) => props.theme.text};
+    margin: 0px;
+    text-transform: capitalize;
+    color: ${(props) => props.theme.text};
   }
 
   span {
     display: block;
     color: ${(props) => props.theme.text};
-    font-size: 12px; 
+    font-size: 12px;
     margin-bottom: 5px;
   }
-
-  
 
   .image-pokemon {
     margin-top: auto;
     margin-bottom: auto;
     width: 120px;
     height: auto;
-    
   }
 
   .button-more {
